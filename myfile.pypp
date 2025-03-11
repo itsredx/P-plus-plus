@@ -1,0 +1,6 @@
+print("helo world")
+x = 15
+print(3 + 9)
+print(3 + x)
+y = 6 / 2
+print(y) 
