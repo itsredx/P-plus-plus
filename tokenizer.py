@@ -11,7 +11,12 @@ class Token:
         return f"Token({self.type}, {self.value!r}, line={self.line}, col={self.column})"
 
 KEYWORDS = {'def', 'if', 'else', 'while', 'for', 'in', 'return', 
-            'not', 'and', 'or', 'null', 'ptr', 'asm', 'true', 'false'}
+            'not', 'and', 'or', 'null', 'ptr', 'asm', 'true', 'false',
+            'as', 'class',  # New keywords
+            'int', 'int8', 'int16', 'int32', 'int64',  # Integer types
+            'uint8', 'uint16', 'uint32', 'uint64',   # Unsigned integer types
+            'float', 'float32', 'float64',             # Float types
+            'bool', 'string', 'void'}                  # Other built-in types
 
 # Updated token specification:
 # Removed POINTER_OP and let '*' be handled in OP.
