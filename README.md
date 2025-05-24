@@ -1,6 +1,6 @@
-# P-- (P Minus Minus)
+# P++ (P Plus Plus)
 
-P-- is a work-in-progress programming language, featuring both a compiler and an interpreter. It is designed to be a learning project exploring various aspects of language design and implementation, including parsing, intermediate representation, code generation (via LLVM), and runtime environments.
+P++ is a work-in-progress programming language, featuring both a compiler and an interpreter. It is designed to be a learning project exploring various aspects of language design and implementation, including parsing, intermediate representation, code generation (via LLVM), and runtime environments.
 
 ## Project Status
 
