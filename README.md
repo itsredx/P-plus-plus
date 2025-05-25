@@ -1,6 +1,6 @@
-# P-- (P Minus Minus)
+# P++ (P Plus Plus)
 
-P-- is a work-in-progress programming language, featuring both a compiler and an interpreter. It is designed to be a learning project exploring various aspects of language design and implementation, including parsing, intermediate representation, code generation (via LLVM), and runtime environments.
+P++ is a work-in-progress programming language, featuring both a compiler and an interpreter. It is designed to be a learning project exploring various aspects of language design and implementation, including parsing, intermediate representation, code generation (via LLVM), and runtime environments.
 
 ## Project Status
 
@@ -10,8 +10,8 @@ The project is developed iteratively. Key completed milestones include:
 *   **Custom Intermediate Representation (IR)**: Translation from AST to IR, including basic error handling.
 *   **LLVM Code Generation & Basic Optimization**: Conversion of custom IR to LLVM IR, with initial optimizations like constant folding and dead code elimination.
 *   **Basic AOT and JIT Compilation**: Capable of compiling and running simple programs.
-*   **AST-Walking Interpreter**: For direct execution of P-- code.
-*   **Interactive Shell (REPL)**: Allowing users to experiment with P-- in either interpreted or JIT-compiled mode.
+*   **AST-Walking Interpreter**: For direct execution of P++ code.
+*   **Interactive Shell (REPL)**: Allowing users to experiment with P++ in either interpreted or JIT-compiled mode.
 *   **Command-Line Interface (CLI)**: For compiling, interpreting, and running `.pypp` files.
 
 **Current Development Focus (Iteration 4): Memory Management**
@@ -33,8 +33,8 @@ The project is organized into several key Python modules:
 *   **`ir_optimizer.py`**: Implements optimization passes on the custom IR.
 *   **`compiler.py`**: Orchestrates the compilation pipeline (Tokenize -> Parse -> AST -> IR -> Optimize IR -> LLVM IR). Supports both Ahead-Of-Time (AOT) compilation to executables and Just-In-Time (JIT) execution.
 *   **`llvm_codegen.py`**: Generates LLVM IR from the custom IR.
-*   **`interpreter.py`**: A tree-walking interpreter that executes P-- code directly from the AST.
-*   **`runtime.py`**: Provides the runtime environment for P--, including an `ExecutionOrchestrator` for managing memory, concurrency, and an interactive REPL. It also includes a `CompilationController` for potential dynamic JIT management.
+*   **`interpreter.py`**: A tree-walking interpreter that executes P++ code directly from the AST.
+*   **`runtime.py`**: Provides the runtime environment for P++, including an `ExecutionOrchestrator` for managing memory, concurrency, and an interactive REPL. It also includes a `CompilationController` for potential dynamic JIT management.
 *   **`memory_manager.py`**: Focus of current development for memory allocation, deallocation, and garbage collection.
 *   **`concurrency.py`**: Provides building blocks (`ThreadManager`, `AsyncScheduler`) for concurrent execution, utilized by `runtime.py`.
 *   **`cli.py`**: The main command-line interface for P++. Supports `compile`, `interpret`, and `run` commands for `.pypp` files.
@@ -43,12 +43,12 @@ The project is organized into several key Python modules:
 *   **`pyppc.py`**: An alternative CLI for the compiler, currently a placeholder.
 
 Other notable files:
-*   **`.pypp` files**: Source files written in the P-- language (e.g., `test.pypp`, `myfile.pypp`).
+*   **`.pypp` files**: Source files written in the P++ language (e.g., `test.pypp`, `myfile.pypp`).
 *   **`output.ll`, `output.o`, `output_executable`**: Example output files from the AOT compilation process.
 
-## How to Use P--
+## How to Use P++
 
-P-- source files use the `.pypp` extension.
+P++ source files use the `.pypp` extension.
 
 **1. Command-Line Interface (`cli.py`)**
 
@@ -83,7 +83,7 @@ P-- source files use the `.pypp` extension.
 *   **Commands**:
     *   `:mode interpreter` - Switch to interpreter mode.
     *   `:mode compiler` - Switch to JIT compiler mode.
-    *   `<P-- code>` - Enter any P-- code to execute.
+    *   `<P++ code>` - Enter any P++ code to execute.
     *   `:exit` - Quit the shell.
 
 ## Compilation and Interpretation Pipeline
