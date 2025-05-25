@@ -11,7 +11,14 @@ class Token:
         return f"Token({self.type}, {self.value!r}, line={self.line}, col={self.column})"
 
 KEYWORDS = {'def', 'if', 'else', 'while', 'for', 'in', 'return', 
-            'not', 'and', 'or', 'null', 'ptr', 'asm', 'true', 'false'}
+            'not', 'and', 'or', 'null', 'ptr', 'asm', 'true', 'false',
+            'as', 'class',  # New keywords
+            'int', 'int8', 'int16', 'int32', 'int64',  # Integer types
+            'uint8', 'uint16', 'uint32', 'uint64',   # Unsigned integer types
+            'float', 'float32', 'float64',             # Float types
+            'bool', 'string', 'void',                  # Other built-in types
+            'malloc', 'free',                          # Memory management keywords
+            'INDENT', 'DEDENT'}                        # Block structure keywords (for current test setup)
 
 # Updated token specification:
 # Removed POINTER_OP and let '*' be handled in OP.
@@ -19,11 +26,15 @@ token_specification = [
     ('NUMBER',        r'\d+(\.\d+)?'),                      # Integer or decimal number
     ('STRING',        r'"([^"\\]|\\.)*"'),                  # String literal with escape support
     ('ID',            r'[A-Za-z_]\w*'),                     # Identifiers
-    ('ADDRESS_OF_OP', r'&'),                               # Address-of operator
+    ('AMPERSAND',     r'&'),                               # Address-of operator (renamed)
+    ('STAR',          r'\*'),                               # Asterisk for pointer ops or multiply
     ('ASSIGN',        r'='),                                # Assignment operator
     ('LPAREN',        r'\('),                               # Left Parenthesis
     ('RPAREN',        r'\)'),                               # Right Parenthesis
-    ('OP',            r'==|!=|>=|<=|>|<|\+|-|\*|/|%'),        # Operators, now includes '*'
+    ('COLON',         r':'),                               # Colon
+    ('COMMA',         r','),                               # Comma
+    ('ARROW',         r'->'),                              # Arrow operator
+    ('OP',            r'==|!=|>=|<=|>|<|\+|-|/|%'),         # Operators (multiplication * removed)
     ('NEWLINE',       r'\n'),                               # Newline
     ('SKIP',          r'[ \t]+'),                           # Skip spaces and tabs
     ('MISMATCH',      r'.'),                                # Any other character (error)

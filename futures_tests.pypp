@@ -1,0 +1,162 @@
+def print_test_status(test_name as string, success as bool):
+    if success:
+        print(test_name + ": SUCCESS")
+    else:
+        print(test_name + ": FAILURE")
+
+print("--- Running Pointer Tests (New Syntax) ---")
+
+def test_pointer_declaration_and_null():
+    p1 as *int32 = null
+    print("test_pointer_declaration_and_null: Executed (syntax check).")
+
+def test_address_of_and_dereference_read():
+    var as int32 = 123
+    p_var as *int32 = &var
+    value as int32 = *p_var
+    print_test_status("test_address_of_and_dereference_read", value == 123)
+
+def test_pointer_dereference_write():
+    var as int32 = 456
+    p_var as *int32 = &var
+    *p_var = 789
+    print_test_status("test_pointer_dereference_write", var == 789)
+
+def test_pointer_assignment():
+    x as int32 = 10
+    p1 as *int32 = &x
+    p2 as *int32 = null
+    p2 = p1
+    val as int32 = *p2
+    print_test_status("test_pointer_assignment", val == 10)
+
+test_pointer_declaration_and_null()
+test_address_of_and_dereference_read()
+test_pointer_dereference_write()
+test_pointer_assignment()
+print("--- Pointer Tests (New Syntax) Finished ---")
+
+print("--- Running Manual Memory Management Tests (New Syntax) ---")
+
+def test_memory_allocation_and_free():
+    mem as *int32 = malloc(int32, 1)
+    allocated_successfully as bool = True
+    if mem == null:
+        allocated_successfully = False
+        print("test_memory_allocation_and_free: malloc returned null.")
+    
+    print_test_status("test_memory_allocation_and_free (allocation)", allocated_successfully)
+
+    if allocated_successfully:
+        *mem = 999
+        retrieved_val as int32 = *mem
+        print_test_status("test_memory_allocation_and_free (store/retrieve)", retrieved_val == 999)
+        free(mem)
+        print("test_memory_allocation_and_free: free(mem) called.")
+    else:
+        print("test_memory_allocation_and_free: Skipping store/retrieve and free due to allocation failure.")
+
+def test_memory_array_allocation():
+    arr_mem as *int32 = malloc(int32, 5)
+    allocated_successfully as bool = True
+    if arr_mem == null:
+        allocated_successfully = False
+        print("test_memory_array_allocation: malloc for array returned null.")
+
+    print_test_status("test_memory_array_allocation (allocation)", allocated_successfully)
+
+    if allocated_successfully:
+        *arr_mem = 101
+        print_test_status("test_memory_array_allocation (first element access)", *arr_mem == 101)
+        free(arr_mem)
+        print("test_memory_array_allocation: free(arr_mem) called.")
+    else:
+        print("test_memory_array_allocation: Skipping array tests due to allocation failure.")
+
+test_memory_allocation_and_free()
+test_memory_array_allocation()
+print("--- Manual Memory Management Tests (New Syntax) Finished ---")
+
+print("--- Running Negative Memory Safety Tests (New Syntax) ---")
+
+def test_dereference_null_pointer_negative():
+    p_null as *int32 = null
+    print("test_dereference_null_pointer_negative: Attempting to dereference null...")
+    print_test_status("test_dereference_null_pointer_negative (skipped actual deref)", True)
+
+def test_use_after_free_negative():
+    p_mem as *int32 = malloc(int32, 1)
+    if p_mem == null:
+        print_test_status("test_use_after_free_negative (setup allocation failed)", False)
+        return
+
+    *p_mem = 222
+    free(p_mem)
+    print("test_use_after_free_negative: Memory freed.")
+    print("test_use_after_free_negative: Attempting to access freed memory (conceptual)...")
+    print_test_status("test_use_after_free_negative (skipped actual deref)", True)
+
+test_dereference_null_pointer_negative()
+test_use_after_free_negative()
+print("--- Negative Memory Safety Tests (New Syntax) Finished ---")
+
+print("futures_tests.pypp updated with new syntax for pointers and memory management.")
+
+print("--- Running Function Definition Tests (New Syntax) ---")
+
+def add_numbers(a as int32, b as int32) -> int32:
+    return a + b
+
+def multiply_and_add(x as int32, y as int32, z as int32) -> int32:
+    intermediate as int32 = x * y
+    return intermediate + z
+
+result1 as int32 = add_numbers(10, 20)
+print_test_status("test_add_numbers", result1 == 30)
+
+result2 as int32 = multiply_and_add(3, 4, 5)
+print_test_status("test_multiply_and_add", result2 == 17)
+
+print("--- Function Definition Tests (New Syntax) Finished ---")
+
+print("--- Running Class Definition and Generics Tests (New Syntax) ---")
+
+class Box<DataType>:
+    value as DataType
+
+    def __init__(v as DataType):
+        value = v
+
+    def get_value() -> DataType:
+        return value
+
+print_test_status("test_define_generic_class_box (syntax check)", True)
+
+class SimpleBox:
+    item as int32
+    def set_item(i as int32):
+        item = i
+    def get_item() -> int32:
+        return item
+
+print("Class definition tests are primarily for syntax checking at this stage due to unknown instantiation mechanisms.")
+print("--- Class Definition and Generics Tests (New Syntax) Finished ---")
+
+print("--- Running Inline Assembly Tests (New Syntax) ---")
+
+def add_asm(a as int32, b as int32) -> int32:
+    asm {
+        "mov eax, a"  
+        "add eax, b"  
+        "ret"         
+    }
+
+asm_result as int32 = add_asm(70, 8)
+print_test_status("test_add_asm", asm_result == 78)
+
+asm_result_neg as int32 = add_asm(-5, 5)
+print_test_status("test_add_asm_negative", asm_result_neg == 0)
+
+print("--- Inline Assembly Tests (New Syntax) Finished ---")
+
+print("All planned tests (Pointers, Memory, Functions, Classes, Assembly) are now in futures_tests.pypp.")

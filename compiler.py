@@ -2,9 +2,9 @@ import sys
 import subprocess
 from tokenizer import tokenize
 from parser import Parser
-from ast_to_ir import translate
+from ast_to_ir import ASTToIRConverter
 from ir_optimizer import optimize_ir
-from llvm_codegen import generate_llvm_ir
+from llvm_codegen import LLVMCodeGenerator
 from llvmlite import binding
 from ctypes import CFUNCTYPE, c_int
 
@@ -17,7 +17,8 @@ def compile_and_run(source_code, aot=False):
     print("AST:", ast)
     
     # Translate AST to our custom IR.
-    custom_ir = translate(ast)
+    converter = ASTToIRConverter()
+    custom_ir = converter.translate_program(ast)
     print("Custom IR:", custom_ir)
     
     # Optimize the IR.
@@ -25,8 +26,8 @@ def compile_and_run(source_code, aot=False):
     print("Optimized IR:", optimized_ir)
     
     # Generate LLVM IR from our optimized IR.
-    llvm_module = generate_llvm_ir(optimized_ir)
-    llvm_ir_str = str(llvm_module)
+    llvm_gen = LLVMCodeGenerator()
+    llvm_ir_str = llvm_gen.generate_llvm_ir(optimized_ir)
     print("Generated LLVM IR:\n", llvm_ir_str)
     
     # Initialize LLVM for JIT execution.
